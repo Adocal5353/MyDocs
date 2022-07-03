@@ -58,15 +58,17 @@ class _MyHomePageState extends State<MyHomePage> {
     } else if (currentPage == DrawerSection.settings) {
       container = Settings();
     }
+
     return Scaffold(
+      backgroundColor: Colors.blue,
       appBar: AppBar(
-        backgroundColor: Colors.blue,
         title: Text(
           widget.title,
           style: TextStyle(
             color: Colors.black,
           ),
         ),
+        elevation: 0,
       ),
       body: container,
       drawer: Drawer(
