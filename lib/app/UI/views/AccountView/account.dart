@@ -37,7 +37,7 @@ class _AccountViewState extends State<AccountView> {
             ),
             Text(
               "My account",
-              style: Theme.of(context).textTheme.headline3,
+              style: Theme.of(context).textTheme.displaySmall,
               textAlign: TextAlign.center,
             ),
             Padding(
@@ -47,7 +47,7 @@ class _AccountViewState extends State<AccountView> {
             ),
             Text(
               "My tag name",
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
               textAlign: TextAlign.center,
             ),
             Padding(

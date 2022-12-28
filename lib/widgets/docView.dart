@@ -31,10 +31,11 @@ Widget docView(String title, [String description = '']) {
                 textDirection: TextDirection.ltr,
                 style: TextStyle(
                   fontSize: 20.0,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                 ),
                 maxLines: 1,
                 textScaleFactor: 1,
+                overflow: TextOverflow.ellipsis,
               ),
               SizedBox(
                 height: description == '' ? 0 : 7.0,
@@ -43,6 +44,7 @@ Widget docView(String title, [String description = '']) {
                 description,
                 textAlign: TextAlign.left,
                 maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 15,
@@ -55,15 +57,17 @@ Widget docView(String title, [String description = '']) {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Icon(
-                    Icons.remove_red_eye,
-                    color: Colors.red,
+                    Icons.more_vert_outlined,
+                    color: Color.fromARGB(255, 201, 195, 194),
+                    size: 24,
                   ),
                   SizedBox(
                     width: 30.0,
                   ),
                   Icon(
                     Icons.download,
-                    color: Colors.blue.shade200,
+                    color: Color.fromARGB(255, 177, 215, 246),
+                    size: 24,
                   ),
                   SizedBox(
                     width: 30.0,

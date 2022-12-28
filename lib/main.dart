@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:my_docs/app/UI/shared/my_drawer/my_drawer_header.dart';
 import 'package:my_docs/app/UI/views/AccountView/account.dart';
-import 'package:my_docs/app/UI/views/downloadFileView/downloadFile.dart';
 import 'package:my_docs/app/UI/views/feedbackView/feedbackView.dart';
 import 'package:my_docs/app/UI/views/homeView/home_view.dart';
 import 'package:my_docs/app/UI/views/manageFile/manageFile.dart';
 import 'package:my_docs/app/UI/views/privacyView/privacy.dart';
 import 'package:my_docs/app/UI/views/settingsView/Settings.dart';
+
+import 'app/Data/fromDocApi.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'My Docs',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -42,13 +43,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var data = getAllDocs();
+    data.then((value) => print(value));
     var container;
     if (currentPage == DrawerSection.home) {
       container = HomeView();
     } else if (currentPage == DrawerSection.manageFile) {
       container = ManageFile();
-    } else if (currentPage == DrawerSection.downloadFile) {
-      container = DownloadView();
     } else if (currentPage == DrawerSection.account) {
       container = AccountView();
     } else if (currentPage == DrawerSection.privacy_policy) {
@@ -96,15 +97,13 @@ class _MyHomePageState extends State<MyHomePage> {
             } else if (id == 2) {
               currentPage = DrawerSection.manageFile;
             } else if (id == 3) {
-              currentPage = DrawerSection.downloadFile;
-            } else if (id == 4) {
               currentPage = DrawerSection.account;
+            } else if (id == 4) {
+              currentPage = DrawerSection.settings;
             } else if (id == 5) {
               currentPage = DrawerSection.send_feedback;
             } else if (id == 6) {
               currentPage = DrawerSection.privacy_policy;
-            } else if (id == 7) {
-              currentPage = DrawerSection.settings;
             }
           });
         },
@@ -147,12 +146,10 @@ class _MyHomePageState extends State<MyHomePage> {
               currentPage == DrawerSection.home ? true : false),
           menuItem(2, 'Mes fichiers', Icons.file_present_sharp,
               currentPage == DrawerSection.manageFile ? true : false),
-          menuItem(3, 'Explorer', Icons.search,
-              currentPage == DrawerSection.downloadFile ? true : false),
           Divider(),
-          menuItem(4, 'Mon compte', Icons.account_box_rounded,
+          menuItem(3, 'Mon compte', Icons.account_box_rounded,
               currentPage == DrawerSection.account ? true : false),
-          menuItem(7, 'Paramètres', Icons.settings,
+          menuItem(4, 'Paramètres', Icons.settings,
               currentPage == DrawerSection.settings ? true : false),
           Divider(),
           menuItem(5, 'Retours', Icons.feedback,
@@ -168,7 +165,6 @@ class _MyHomePageState extends State<MyHomePage> {
 enum DrawerSection {
   home,
   manageFile,
-  downloadFile,
   account,
   privacy_policy,
   send_feedback,

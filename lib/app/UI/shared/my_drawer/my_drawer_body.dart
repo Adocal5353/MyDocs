@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_docs/app/UI/shared/my_drawer/my_drawer_header.dart';
 import 'package:my_docs/app/UI/views/AccountView/account.dart';
-import 'package:my_docs/app/UI/views/downloadFileView/downloadFile.dart';
 import 'package:my_docs/app/UI/views/feedbackView/feedbackView.dart';
 import 'package:my_docs/app/UI/views/homeView/home_view.dart';
 import 'package:my_docs/app/UI/views/manageFile/manageFile.dart';
@@ -24,8 +23,6 @@ class _MyBodyDrawerState extends State<MyBodyDrawer> {
       container = HomeView();
     } else if (currentPage == DrawerSection.manageFile) {
       container = ManageFile();
-    } else if (currentPage == DrawerSection.downloadFile) {
-      container = DownloadView();
     } else if (currentPage == DrawerSection.account) {
       container = AccountView();
     } else if (currentPage == DrawerSection.privacy_policy) {
@@ -54,8 +51,6 @@ class _MyBodyDrawerState extends State<MyBodyDrawer> {
               currentPage == DrawerSection.home ? true : false),
           menuItem(2, 'Mes fichiers', Icons.file_present_sharp,
               currentPage == DrawerSection.manageFile ? true : false),
-          menuItem(3, 'Explorer', Icons.search,
-              currentPage == DrawerSection.downloadFile ? true : false),
           menuItem(4, 'Mon compte', Icons.account_box_rounded,
               currentPage == DrawerSection.account ? true : false),
           menuItem(5, 'Retours', Icons.feedback,
@@ -76,8 +71,6 @@ class _MyBodyDrawerState extends State<MyBodyDrawer> {
           setState(() {
             if (id == 1) {
               currentPage = DrawerSection.home;
-            } else if (id == 2) {
-              currentPage = DrawerSection.downloadFile;
             } else if (id == 3) {
               currentPage = DrawerSection.manageFile;
             } else if (id == 4) {
@@ -118,11 +111,4 @@ class _MyBodyDrawerState extends State<MyBodyDrawer> {
   }
 }
 
-enum DrawerSection {
-  home,
-  manageFile,
-  downloadFile,
-  account,
-  privacy_policy,
-  send_feedback
-}
+enum DrawerSection { home, manageFile, account, privacy_policy, send_feedback }
