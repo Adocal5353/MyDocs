@@ -1,0 +1,43 @@
+{
+    "title": {
+        "loremWords": {
+            "minLength": 5,
+            "maxLength": 8
+        }
+    },
+    "author": {
+        "string": [
+                "Golden Britt",
+                "Palmer Figueroa",
+                "Sophie Owen",
+                "Kaufman Blevins",
+                "Berry Hicks",
+                "Burns Rivas",
+                "Donaldson Chavez",
+                "Lewis Wilson",
+                "Pate Hood",
+                "Kellie Albert",
+                "Sykes Davis",
+                "Willis Mckay",
+                "Kendra Buck",
+                "Marcie Page",
+                "Lucille Delaney",
+                "Figueroa Hatfield"
+        ]
+    },
+    "description": {
+        "loremParagraphs": {
+            "minLength": 10,
+            "maxLength": 50
+        }
+    },
+    "size": {
+        "int": {
+            "min": 1,
+            "max": 20
+        }
+    },
+    "dlink": {
+        "regexp": "https://mydocs\\.doc/seed/[0-9]{5}/1920/1080"
+    }
+}
