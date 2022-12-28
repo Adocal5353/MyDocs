@@ -1,12 +1,13 @@
 {
-    "title": {
-        "loremWords": {
-            "minLength": 5,
-            "maxLength": 8
-        }
-    },
-    "author": {
-        "string": [
+    "Document": {
+        "title": {
+            "loremWords": {
+                "minLength": 5,
+                "maxLength": 8
+            }
+        },
+        "author": {
+            "string": [
                 "Golden Britt",
                 "Palmer Figueroa",
                 "Sophie Owen",
@@ -23,21 +24,22 @@
                 "Marcie Page",
                 "Lucille Delaney",
                 "Figueroa Hatfield"
-        ]
-    },
-    "description": {
-        "loremParagraphs": {
-            "minLength": 10,
-            "maxLength": 50
+            ]
+        },
+        "description": {
+            "loremParagraphs": {
+                "minLength": 10,
+                "maxLength": 50
+            }
+        },
+        "size": {
+            "int": {
+                "min": 1,
+                "max": 20
+            }
+        },
+        "dlink": {
+            "regexp": "https://mydocs\\.doc/seed/[0-9]{5}/1920/1080"
         }
-    },
-    "size": {
-        "int": {
-            "min": 1,
-            "max": 20
-        }
-    },
-    "dlink": {
-        "regexp": "https://mydocs\\.doc/seed/[0-9]{5}/1920/1080"
     }
 }
