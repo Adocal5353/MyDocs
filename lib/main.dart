@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:my_docs/app/UI/shared/my_drawer/my_drawer_header.dart';
 import 'package:my_docs/app/UI/views/AccountView/account.dart';
 import 'package:my_docs/app/UI/views/feedbackView/feedbackView.dart';
@@ -6,10 +8,10 @@ import 'package:my_docs/app/UI/views/homeView/home_view.dart';
 import 'package:my_docs/app/UI/views/manageFile/manageFile.dart';
 import 'package:my_docs/app/UI/views/privacyView/privacy.dart';
 import 'package:my_docs/app/UI/views/settingsView/Settings.dart';
+import 'package:my_docs/config/config.dart';
 
-import 'app/Data/fromDocApi.dart';
-
-void main() {
+void main() async {
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -18,11 +20,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'My Docs',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(title: 'MyDocs'),
     );
@@ -39,44 +38,69 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var currentPage = DrawerSection.home;
-
+  DrawerSection currentPage = DrawerSection.home;
+  Radius containerRaduis = const Radius.circular(30);
   @override
   Widget build(BuildContext context) {
-    var data = getAllDocs();
-    data.then((value) => print(value));
-    var container;
+    Widget? container;
     if (currentPage == DrawerSection.home) {
       container = HomeView();
     } else if (currentPage == DrawerSection.manageFile) {
       container = ManageFile();
     } else if (currentPage == DrawerSection.account) {
-      container = AccountView();
+      container = const AccountView();
     } else if (currentPage == DrawerSection.privacy_policy) {
       container = PrivacyPolicyPage();
     } else if (currentPage == DrawerSection.send_feedback) {
-      container = FeedbackView();
+      container = const FeedbackView();
     } else if (currentPage == DrawerSection.settings) {
-      container = Settings();
+      container = const Settings();
     }
 
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Config.colors.appBarColor,
       appBar: AppBar(
         title: Text(
           widget.title,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
           ),
         ),
         elevation: 0,
+        backgroundColor: Config.colors.appBarColor,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.toggle_off),
+            onPressed: (() {}),
+          ),
+          IconButton(
+            icon: Icon(Icons.account_circle),
+            onPressed: (() {}),
+          ),
+        ],
       ),
-      body: container,
+      body: DecoratedBox(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topRight: containerRaduis,
+            topLeft: containerRaduis,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 12,
+            right: 12,
+            top: 20,
+          ),
+          child: container,
+        ),
+      ),
       drawer: Drawer(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              MyHeaderDrawer(),
+              const MyHeaderDrawer(),
               DrawerList(),
             ],
           ),

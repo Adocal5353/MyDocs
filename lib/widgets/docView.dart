@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_docs/models/Doc.dart';
+import 'package:get/get.dart';
+import 'package:my_docs/app/UI/views/Details_view/details_view.dart';
+import 'package:my_docs/models/document.dart';
 import 'package:my_docs/widgets/button.dart';
 
 import 'Bbutton.dart';
@@ -84,6 +86,63 @@ Widget docView(String title, [String description = '']) {
           ),
         )
       ],
+    ),
+  );
+}
+
+Widget docWait(Document document) {
+  return Card(
+    child: ListTile(
+      leading: Container(
+        child: Image.asset(
+          'assets/images/pdf.png',
+          fit: BoxFit.contain,
+        ),
+      ),
+      title: Text(
+        document.title,
+      ),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            'Publié par ${document.author}',
+            style: TextStyle(
+              fontWeight: FontWeight.w400,
+              fontSize: 13,
+            ),
+            textAlign: TextAlign.justify,
+          ),
+          SizedBox(
+            height: 5,
+          ),
+        ],
+      ),
+      trailing: PopupMenuButton(
+        itemBuilder: (context) {
+          return [
+            PopupMenuItem<int>(
+              value: 0,
+              child: Text('Voir les détails'),
+            ),
+            PopupMenuItem<int>(
+              value: 1,
+              child: Text('Télécharger'),
+            )
+          ];
+        },
+        onSelected: (value) {
+          if (value == 0) {
+            Get.to(() => DetailView(doc: document));
+            print('The user want to see more information ');
+          } else if (value == 1) {
+            print('The user want to download the file');
+          }
+        },
+      ),
     ),
   );
 }
