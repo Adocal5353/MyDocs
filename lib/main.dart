@@ -79,23 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: DecoratedBox(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topRight: containerRaduis,
-            topLeft: containerRaduis,
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(
-            left: 12,
-            right: 12,
-            top: 20,
-          ),
-          child: container,
-        ),
-      ),
+      body: container,
       drawer: Drawer(
         child: SingleChildScrollView(
           child: Column(

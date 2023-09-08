@@ -41,83 +41,99 @@ class HomeView extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: double.maxFinite,
-      width: double.maxFinite,
-      child: Column(
-        children: [
-          SizedBox(
-            child: TextField(
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Color.fromARGB(255, 251, 240, 240),
-                hintText: 'Chercher un document par le titre...',
-                hintStyle: const TextStyle(
-                  color: Color.fromARGB(255, 129, 123, 123),
-                  fontSize: 17,
-                  fontWeight: FontWeight.w400,
-                ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(50),
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topRight: containerRaduis,
+          topLeft: containerRaduis,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 12,
+          right: 12,
+          top: 20,
+        ),
+        child: SizedBox(
+          height: double.maxFinite,
+          width: double.maxFinite,
+          child: Column(
+            children: [
+              SizedBox(
+                child: TextField(
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color.fromARGB(255, 251, 240, 240),
+                    hintText: 'Chercher un document par le titre...',
+                    hintStyle: const TextStyle(
+                      color: Color.fromARGB(255, 129, 123, 123),
+                      fontSize: 17,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Expanded(
-            child: RefreshIndicator(
-              onRefresh: () {
-                return documentController.getDocuments();
-              },
-              color: Colors.deepPurpleAccent,
-              child: GetBuilder<DocumentController>(
-                id: 1,
-                builder: (_) => SingleChildScrollView(
-                  child: !documentController.isInternetConnect.value
-                      ? Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: 150,
-                                width: 150,
-                                child: Lottie.asset(
-                                    'assets/animations/no-internet.json'),
+              const SizedBox(
+                height: 20,
+              ),
+              Expanded(
+                child: RefreshIndicator(
+                  onRefresh: () {
+                    return documentController.getDocuments();
+                  },
+                  color: Colors.deepPurpleAccent,
+                  child: GetBuilder<DocumentController>(
+                    id: 1,
+                    builder: (_) => SingleChildScrollView(
+                      child: !documentController.isInternetConnect.value
+                          ? Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 150,
+                                    width: 150,
+                                    child: Lottie.asset(
+                                        'assets/animations/no-internet.json'),
+                                  ),
+                                  MaterialButton(
+                                    onPressed: () async {
+                                      if (await InternetConnectionChecker()
+                                              .hasConnection ==
+                                          true) {
+                                        documentController.getDocuments();
+                                      } else {
+                                        showCustomSnackBar(context,
+                                            "Erreur, Veuillez vérifier votre connexion internet.");
+                                      }
+                                    },
+                                    color: Colors.red.shade300,
+                                    child: Text(
+                                      "Réessayer",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 12),
+                                    ),
+                                  )
+                                ],
                               ),
-                              MaterialButton(
-                                onPressed: () async {
-                                  if (await InternetConnectionChecker()
-                                          .hasConnection ==
-                                      true) {
-                                    documentController.getDocuments();
-                                  } else {
-                                    showCustomSnackBar(context,
-                                        "Erreur, Veuillez vérifier votre connexion internet.");
-                                  }
-                                },
-                                color: Colors.red.shade300,
-                                child: Text(
-                                  "Réessayer",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 12),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      : documentController.isLoading.value
-                          ? _buildLoading()
-                          : _buildBody(),
+                            )
+                          : documentController.isLoading.value
+                              ? _buildLoading()
+                              : _buildBody(),
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -133,7 +149,6 @@ class HomeView extends StatelessWidget {
       separatorBuilder: (context, index) {
         return SizedBox(
           height: 8,
-          
         );
       },
     );
